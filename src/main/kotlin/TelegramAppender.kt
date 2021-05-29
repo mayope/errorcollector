@@ -31,7 +31,6 @@ open class TelegramAppender(private val dispatcher: CoroutineDispatcher = Dispat
     var serviceName: String? = null
     var activateOnEnv: String? = null
 
-
     private lateinit var errorAppender: ErrorAppender
 
     override fun start() {
@@ -46,7 +45,8 @@ open class TelegramAppender(private val dispatcher: CoroutineDispatcher = Dispat
     private fun buildAggregator(): ErrorAggregator {
         val issueService = issueBaseUrl?.let {
             IssueService(
-                it, IssueProvider.getMatching(
+                it,
+                IssueProvider.getMatching(
                     issueProvider ?: error("you need to specify an issueProvider if you provide an issueBaseUrl")
                 )
             )

@@ -20,17 +20,16 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 
-
 @Suppress("LongParameterList")
 @ObsoleteCoroutinesApi
 internal class ErrorAggregator(
     private val exceptionPublisher: ExceptionPublisher,
-    private val serviceName:String,
+    private val serviceName: String,
     defaultDispatcher: CoroutineDispatcher? = null,
     private val issueService: IssueService? = null,
     private val pastebinClient: PastebinClient? = null,
     private val urlPastebin: String? = null,
-    private val sendInterval: Duration ,
+    private val sendInterval: Duration,
 ) {
 
     private val dispatcher: CoroutineDispatcher = defaultDispatcher ?: Dispatchers.Default
@@ -71,7 +70,6 @@ internal class ErrorAggregator(
         }
         exceptionCollection[eventObject.formattedMessage]!!.count.getAndIncrement()
     }
-
 
     fun stop() {
         sendScope.cancel()

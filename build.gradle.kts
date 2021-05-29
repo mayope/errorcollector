@@ -110,7 +110,6 @@ val javadocJar by tasks.creating(Jar::class) {
     from(tasks.javadoc)
 }
 
-
 publishing {
     publications {
         register("mavenJava", MavenPublication::class) {
@@ -170,8 +169,6 @@ val publications = project.publishing.publications.withType(MavenPublication::cl
 signing {
     sign(publishing.publications["mavenJava"])
 }
-
-
 
 gradle.taskGraph.whenReady {
     if (allTasks.any { it is Sign }) {

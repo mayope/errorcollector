@@ -3,7 +3,6 @@ package de.mayope.errorcollector.issue
 import java.net.URLEncoder
 import java.util.Locale
 
-
 internal enum class IssueProvider(val titleField: String, val bodyField: String) {
     JIRA("summary", "description"),
     GITHUB("title", "body");
@@ -16,8 +15,10 @@ internal enum class IssueProvider(val titleField: String, val bodyField: String)
     }
 }
 
-internal class IssueService(private val baseUrl: String,
-    private val issueProvider: IssueProvider) {
+internal class IssueService(
+    private val baseUrl: String,
+    private val issueProvider: IssueProvider
+) {
 
     fun issueLink(title: String, stacktrace: String, serviceName: String = "", pastebinLink: String? = null): String {
         val encodedTitle = encodeText("$serviceName: $title")
@@ -38,5 +39,4 @@ internal class IssueService(private val baseUrl: String,
     }
 
     private fun encodeText(text: String) = URLEncoder.encode(text, Charsets.UTF_8)
-
 }

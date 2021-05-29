@@ -6,8 +6,8 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 @ObsoleteCoroutinesApi
 internal class ErrorAppender(
     private val blackList: List<String> = emptyList(),
-    private val errorAggregator: ErrorAggregator) {
-
+    private val errorAggregator: ErrorAggregator
+) {
 
     fun stop() {
         errorAggregator.stop()
@@ -33,7 +33,6 @@ internal class ErrorAppender(
         errorAggregator.registerMessage(eventObject)
     }
 
-
     private fun isBlacklisted(logMessage: String): Boolean {
         blackList.forEach {
             if (logMessage.contains(it)) {
@@ -43,4 +42,3 @@ internal class ErrorAppender(
         return false
     }
 }
-

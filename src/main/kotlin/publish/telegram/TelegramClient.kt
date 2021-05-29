@@ -16,7 +16,7 @@ interface TelegramClient {
 }
 
 class TelegramClientBuilder {
-    fun build(url: String, connectTimeOut: Long, readTimeOut: Long,botToken:String): TelegramClient {
+    fun build(url: String, connectTimeOut: Long, readTimeOut: Long, botToken: String): TelegramClient {
         return Feign.builder().run {
             encoder(JacksonEncoder())
             decoder(JacksonDecoder())

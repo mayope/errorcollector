@@ -26,11 +26,13 @@ internal fun PastebinClient.uploadText(text: String): String =
     }
 
 internal class PastebinClientBuilder {
-    fun build(url: String,
+    fun build(
+        url: String,
         connectTimeOut: Long,
         readTimeOut: Long,
         userName: String?,
-        password: String?): PastebinClient {
+        password: String?
+    ): PastebinClient {
         return Feign.builder().run {
             encoder(JacksonEncoder())
             decoder(JacksonDecoder())

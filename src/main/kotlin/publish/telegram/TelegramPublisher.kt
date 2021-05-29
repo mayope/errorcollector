@@ -14,8 +14,9 @@ private const val EXCEPTION_STACKTRACE_LIMIT = 800
 
 internal class TelegramPublisher(
     private val telegramClient: TelegramClient,
-    private val chatId: String, private val serviceName: String) : ExceptionPublisher {
-
+    private val chatId: String,
+    private val serviceName: String
+) : ExceptionPublisher {
 
     override fun publishExceptions(exceptions: List<PublishableException>) {
         val count = exceptions.sumOf { it.exception.count.toInt() }
@@ -31,8 +32,10 @@ internal class TelegramPublisher(
         }
     }
 
-    private fun formatChunk(title: String,
-        exceptions: List<PublishableException>) =
+    private fun formatChunk(
+        title: String,
+        exceptions: List<PublishableException>
+    ) =
         "$title\n" + exceptions.joinToString("\n\n") {
             createText(it.exception.event, it.exception.count.toInt(), it.issueLink, it.pastebinLink)
         }
@@ -40,7 +43,7 @@ internal class TelegramPublisher(
     private fun createText(eventObject: ILoggingEvent, count: Int, issueLink: String?, pastebinLink: String?): String {
         val text = ThrowableProxyUtil.asString(eventObject.throwableProxy)
         return "${ellipse(eventObject)} Count: $count\n ${stacktraceContent(text, pastebinLink)}${
-            issueLink(issueLink)
+        issueLink(issueLink)
         }"
     }
 

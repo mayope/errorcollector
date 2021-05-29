@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import java.time.Duration
 
-
 internal const val CONNECT_TIMEOUT = 60L
 internal const val READ_TIMEOUT = 600L
 internal const val SEND_INTERVAL_MINUTES = 5L
@@ -36,7 +35,6 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
     var serviceName: String? = null
     var activateOnEnv: String? = null
 
-
     private lateinit var errorAppender: ErrorAppender
 
     override fun start() {
@@ -48,7 +46,8 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
     private fun buildAggregator(): ErrorAggregator {
         val issueService = issueBaseUrl?.let {
             IssueService(
-                it, IssueProvider.getMatching(
+                it,
+                IssueProvider.getMatching(
                     issueProvider ?: error("you need to specify an issueProvider if you provide an issueBaseUrl")
                 )
             )

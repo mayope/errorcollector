@@ -42,5 +42,4 @@ internal class TeamsPublisher(private val teamsClient: TeamsClient, private val 
         issueLink?.let {
             "<a href=\"$it\">create ticket</a>"
         } ?: ""
-
 }

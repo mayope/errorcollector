@@ -12,13 +12,12 @@ import java.time.Duration
 @ExperimentalCoroutinesApi
 internal class TelegramAppenderIT {
 
-
     private fun getLogger(classInstance: Class<out Any>) = LoggerFactory.getLogger(classInstance) ?: error(
         "Could not get logger!"
     )
 
-    private val botToken:String=System.getenv("BOTTOKEN")
-    private val chatId:String=System.getenv("CHATID")
+    private val botToken: String = System.getenv("BOTTOKEN")
+    private val chatId: String = System.getenv("CHATID")
 
     @Disabled
     @Test
@@ -53,7 +52,6 @@ internal class TelegramAppenderIT {
         telegramAppender.pastebinUsername = System.getenv("PASTEBIN_USERNAME")
         telegramAppender.pastebinPassword = System.getenv("PASTEBIN_PASSWORD")
         telegramAppender.start()
-
 
         val logger = getLogger(TelegramAppenderIT::class.java) as Logger
         logger.addAppender(telegramAppender)
