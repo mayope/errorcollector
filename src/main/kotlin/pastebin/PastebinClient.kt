@@ -20,16 +20,21 @@ internal interface PastebinClient {
     fun post(@Param("body") body: String): Response
 }
 
-internal fun PastebinClient.uploadText(text: String): String = post(text).body().asReader(Charsets.UTF_8).readText().let {
-    it.split("/").last()
-}
+internal fun PastebinClient.uploadText(text: String): String =
+    post(text).body().asReader(Charsets.UTF_8).readText().let {
+        it.split("/").last()
+    }
 
 internal class PastebinClientBuilder {
-    fun build(url: String, connectTimeOut: Long, readTimeOut: Long,userName:String?,password:String?): PastebinClient {
+    fun build(url: String,
+        connectTimeOut: Long,
+        readTimeOut: Long,
+        userName: String?,
+        password: String?): PastebinClient {
         return Feign.builder().run {
             encoder(JacksonEncoder())
             decoder(JacksonDecoder())
-            requestInterceptor(BasicAuthRequestInterceptor(userName,password))
+            requestInterceptor(BasicAuthRequestInterceptor(userName, password))
             options(
                 Request.Options(
                     connectTimeOut, TimeUnit.SECONDS, readTimeOut, TimeUnit.SECONDS, true

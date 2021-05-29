@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 
-private const val SEND_INTERVAL_MINUTES = 1L
 
+@Suppress("LongParameterList")
 @ObsoleteCoroutinesApi
 internal class ErrorAggregator(
     private val exceptionPublisher: ExceptionPublisher,
@@ -30,7 +30,7 @@ internal class ErrorAggregator(
     private val issueService: IssueService? = null,
     private val pastebinClient: PastebinClient? = null,
     private val urlPastebin: String? = null,
-    private val sendInterval: Duration = Duration.ofMinutes(SEND_INTERVAL_MINUTES),
+    private val sendInterval: Duration ,
 ) {
 
     private val dispatcher: CoroutineDispatcher = defaultDispatcher ?: Dispatchers.Default

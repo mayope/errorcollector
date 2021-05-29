@@ -6,7 +6,11 @@ import de.mayope.errorcollector.publish.ExceptionPublisher
 import de.mayope.errorcollector.publish.PublishableException
 import org.apache.commons.lang3.StringUtils
 
-private const val MAX_MESSAGE_LENGTH = 20500
+// The Message limit in Telegram is 4096 characters.
+// We currently don't calculate how many messages could fit in so we just take 4 messages with maximal 1000 characters
+private const val EXCEPTION_CHUNK_SIZE = 4
+private const val EXCEPTION_TITLE_LIMIT = 200
+private const val EXCEPTION_STACKTRACE_LIMIT = 800
 
 internal class TelegramPublisher(
     private val telegramClient: TelegramClient,
@@ -19,15 +23,12 @@ internal class TelegramPublisher(
             return
         }
         val title = "$serviceName: Exception Count: $count"
-        exceptions.chunked(4).map {
+        exceptions.chunked(EXCEPTION_CHUNK_SIZE).map {
             formatChunk(title, it)
-        }.forEach{
+        }.forEach {
             val teamsMessage = TelegramMessage(chat_id = chatId, text = it)
             telegramClient.postException(teamsMessage)
         }
-
-
-
     }
 
     private fun formatChunk(title: String,
@@ -43,11 +44,12 @@ internal class TelegramPublisher(
         }"
     }
 
-    private fun ellipse(eventObject: ILoggingEvent) = StringUtils.abbreviate(eventObject.formattedMessage, 200)
+    private fun ellipse(eventObject: ILoggingEvent) =
+        StringUtils.abbreviate(eventObject.formattedMessage, EXCEPTION_TITLE_LIMIT)
 
     private fun stacktraceContent(text: String, pastebinLink: String?) = pastebinLink?.let {
         "<a href=\"$it\">Stacktrace</a>"
-    } ?: "<code>${StringUtils.abbreviate(text, 800)}</code>"
+    } ?: "<code>${StringUtils.abbreviate(text, EXCEPTION_STACKTRACE_LIMIT)}</code>"
 
     private fun issueLink(issueLink: String?) = issueLink?.let {
         "<br><a href=\"$it\">create issue</a>"

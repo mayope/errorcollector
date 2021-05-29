@@ -19,15 +19,15 @@ open class TelegramAppender(private val dispatcher: CoroutineDispatcher = Dispat
     var url: String = "https://api.telegram.org"
     var chatId: String = ""
     var botToken: String = ""
-    var connectTimeOut: Long = 60
-    var readTimeOut: Long = 600
+    var connectTimeOut: Long = CONNECT_TIMEOUT
+    var readTimeOut: Long = READ_TIMEOUT
     var urlPastebin: String? = null
     var pastebinUsername: String? = null
     var pastebinPassword: String? = null
     var blacklist: String = ""
     var issueProvider: String? = null
     var issueBaseUrl: String? = null
-    var sendIntervalMinutes: Long = 5
+    var sendIntervalMinutes: Long = SEND_INTERVAL_MINUTES
     var serviceName: String? = null
     var activateOnEnv: String? = null
 
@@ -36,6 +36,14 @@ open class TelegramAppender(private val dispatcher: CoroutineDispatcher = Dispat
 
     override fun start() {
 
+        errorAppender =
+            ErrorAppender(
+                parseBlacklist(blacklist), buildAggregator()
+            )
+        super.start()
+    }
+
+    private fun buildAggregator(): ErrorAggregator {
         val issueService = issueBaseUrl?.let {
             IssueService(
                 it, IssueProvider.getMatching(
@@ -47,16 +55,13 @@ open class TelegramAppender(private val dispatcher: CoroutineDispatcher = Dispat
         val pastebinClient = urlPastebin?.let {
             PastebinClientBuilder().build(it, connectTimeOut, readTimeOut, pastebinUsername, pastebinPassword)
         }
-        val exceptionBlacklist = blacklist.split(";").filterNot { it.isBlank() }
         val checkedServiceName = serviceName ?: serviceNameEnv() ?: ""
-
-        errorAppender =
-            ErrorAppender(
-                TelegramPublisher(telegramClient, chatId, checkedServiceName), exceptionBlacklist, issueService,
-                pastebinClient, urlPastebin,
-                Duration.ofMinutes(sendIntervalMinutes), dispatcher, checkedServiceName
-            )
-        super.start()
+        return ErrorAggregator(
+            TelegramPublisher(telegramClient, chatId, checkedServiceName), issueService = issueService,
+            pastebinClient = pastebinClient, urlPastebin = urlPastebin,
+            sendInterval = Duration.ofMinutes(sendIntervalMinutes), defaultDispatcher = dispatcher,
+            serviceName = checkedServiceName
+        )
     }
 
     override fun stop() {

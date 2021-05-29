@@ -12,20 +12,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import java.time.Duration
 
+
+internal const val CONNECT_TIMEOUT = 60L
+internal const val READ_TIMEOUT = 600L
+internal const val SEND_INTERVAL_MINUTES = 5L
+
+internal fun parseBlacklist(blacklist: String) = blacklist.split(";").filterNot { it.isBlank() }
+
 @ObsoleteCoroutinesApi
 open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatchers.Default) :
     AppenderBase<ILoggingEvent>() {
 
     var webhookUrl: String = "https://api.telegram.org"
-    var connectTimeOut: Long = 60
-    var readTimeOut: Long = 600
+    var connectTimeOut: Long = CONNECT_TIMEOUT
+    var readTimeOut: Long = READ_TIMEOUT
     var urlPastebin: String? = null
     var pastebinUsername: String? = null
     var pastebinPassword: String? = null
     var blacklist: String = ""
     var issueProvider: String? = null
     var issueBaseUrl: String? = null
-    var sendIntervalMinutes: Long = 5
+    var sendIntervalMinutes: Long = SEND_INTERVAL_MINUTES
     var serviceName: String? = null
     var activateOnEnv: String? = null
 
@@ -33,6 +40,12 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
     private lateinit var errorAppender: ErrorAppender
 
     override fun start() {
+        errorAppender = ErrorAppender(parseBlacklist(blacklist), buildAggregator())
+
+        super.start()
+    }
+
+    private fun buildAggregator(): ErrorAggregator {
         val issueService = issueBaseUrl?.let {
             IssueService(
                 it, IssueProvider.getMatching(
@@ -44,15 +57,13 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
         val pastebinClient = urlPastebin?.let {
             PastebinClientBuilder().build(it, connectTimeOut, readTimeOut, pastebinUsername, pastebinPassword)
         }
-        val exceptionBlacklist = blacklist.split(";").filterNot { it.isBlank() }
         val checkedServiceName = serviceName ?: serviceNameEnv() ?: ""
-        errorAppender =
-            ErrorAppender(
-                TeamsPublisher(teamsClient, checkedServiceName), exceptionBlacklist, issueService, pastebinClient,
-                urlPastebin,
-                Duration.ofMinutes(sendIntervalMinutes), dispatcher, checkedServiceName
-            )
-        super.start()
+        return ErrorAggregator(
+            TeamsPublisher(teamsClient, checkedServiceName), issueService = issueService,
+            pastebinClient = pastebinClient, urlPastebin = urlPastebin,
+            sendInterval = Duration.ofMinutes(sendIntervalMinutes), defaultDispatcher = dispatcher,
+            serviceName = checkedServiceName
+        )
     }
 
     override fun stop() {

@@ -1,39 +1,19 @@
 package de.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
-import de.mayope.errorcollector.issue.IssueService
-import de.mayope.errorcollector.pastebin.PastebinClient
-import de.mayope.errorcollector.publish.ExceptionPublisher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import java.time.Duration
 
-/**
- * Error collector
- */
 @ObsoleteCoroutinesApi
 internal class ErrorAppender(
-    publisher: ExceptionPublisher,
     private val blackList: List<String> = emptyList(),
-    issueService: IssueService? = null,
-    pastebinClient: PastebinClient? = null,
-    urlPastebin: String?,
-    sendInterval: Duration,
-    dispatcher: CoroutineDispatcher = Dispatchers.Default,
-    serviceName: String) {
-
-    private val errorAggregator = ErrorAggregator(
-        publisher, issueService = issueService, pastebinClient = pastebinClient, urlPastebin = urlPastebin,
-        sendInterval = sendInterval, defaultDispatcher = dispatcher, serviceName = serviceName
-    )
+    private val errorAggregator: ErrorAggregator) {
 
 
     fun stop() {
         errorAggregator.stop()
     }
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     fun append(eventObject: ILoggingEvent?) {
         if (eventObject != null) {
             try {
