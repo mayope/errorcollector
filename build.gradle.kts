@@ -16,7 +16,7 @@ repositories {
 val ktLintVersion = "0.39.0"
 allprojects {
     group = "net.mayope.errorcollector"
-    version = "0.0.1-SNAPSHOT"
+    version = project.version
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
