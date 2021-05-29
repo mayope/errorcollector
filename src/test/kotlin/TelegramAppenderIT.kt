@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
 import java.time.Duration
 
+@Disabled
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 internal class TelegramAppenderIT {
@@ -19,7 +20,6 @@ internal class TelegramAppenderIT {
     private val botToken: String = System.getenv("BOTTOKEN")
     private val chatId: String = System.getenv("CHATID")
 
-    @Disabled
     @Test
     fun testSend() {
         val testDispatcher = TestCoroutineDispatcher()
@@ -39,7 +39,6 @@ internal class TelegramAppenderIT {
         testDispatcher.advanceTimeBy(Duration.ofMinutes(2).toMillis())
     }
 
-    @Disabled
     @Test
     fun testSendPastebin() {
         val testDispatcher = TestCoroutineDispatcher()
@@ -62,7 +61,6 @@ internal class TelegramAppenderIT {
         testDispatcher.advanceTimeBy(Duration.ofMinutes(2).toMillis())
     }
 
-    @Disabled
     @Test
     fun `test more than 4 exceptions should be splitted`() {
         val testDispatcher = TestCoroutineDispatcher()
