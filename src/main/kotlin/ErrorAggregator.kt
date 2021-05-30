@@ -2,12 +2,6 @@ package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.classic.spi.ThrowableProxyUtil
-import net.mayope.errorcollector.issue.IssueService
-import net.mayope.errorcollector.model.ExceptionContainer
-import net.mayope.errorcollector.pastebin.PastebinClient
-import net.mayope.errorcollector.pastebin.uploadText
-import net.mayope.errorcollector.publish.ExceptionPublisher
-import net.mayope.errorcollector.publish.PublishableException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +11,12 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import net.mayope.errorcollector.issue.IssueService
+import net.mayope.errorcollector.model.ExceptionContainer
+import net.mayope.errorcollector.pastebin.PastebinClient
+import net.mayope.errorcollector.pastebin.uploadText
+import net.mayope.errorcollector.publish.ExceptionPublisher
+import net.mayope.errorcollector.publish.PublishableException
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 

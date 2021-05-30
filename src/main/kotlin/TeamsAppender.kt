@@ -2,14 +2,14 @@ package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.AppenderBase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import net.mayope.errorcollector.issue.IssueProvider
 import net.mayope.errorcollector.issue.IssueService
 import net.mayope.errorcollector.pastebin.PastebinClientBuilder
 import net.mayope.errorcollector.publish.teams.TeamsClientBuilder
 import net.mayope.errorcollector.publish.teams.TeamsPublisher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import java.time.Duration
 
 internal const val CONNECT_TIMEOUT = 60L

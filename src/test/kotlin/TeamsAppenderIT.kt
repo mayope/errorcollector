@@ -1,8 +1,8 @@
 import ch.qos.logback.classic.Logger
-import net.mayope.errorcollector.TeamsAppender
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import net.mayope.errorcollector.TeamsAppender
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory

@@ -2,14 +2,14 @@ package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.AppenderBase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import net.mayope.errorcollector.issue.IssueProvider
 import net.mayope.errorcollector.issue.IssueService
 import net.mayope.errorcollector.pastebin.PastebinClientBuilder
 import net.mayope.errorcollector.publish.telegram.TelegramClientBuilder
 import net.mayope.errorcollector.publish.telegram.TelegramPublisher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import java.time.Duration
 
 @ObsoleteCoroutinesApi
