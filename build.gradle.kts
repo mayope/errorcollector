@@ -95,7 +95,8 @@ dependencies {
 
 tasks.named("afterReleaseBuild") {
     dependsOn(
-        "publishMavenJavaPublicationToGitHubPackagesRepository"
+        "publishMavenJavaPublicationToGitHubPackagesRepository",
+        "publishMavenJavaPublicationToMavenCentralRepository"
     )
 }
 val sourcesJar by tasks.creating(Jar::class) {
@@ -120,6 +121,19 @@ publishing {
         }
     }
     repositories {
+        maven {
+            name = "MavenCentral"
+            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+            credentials {
+                val ossrhUser = project.findProperty("ossrhUser") as String? ?: ""
+                username = ossrhUser
+                val ossrhPassword = project.findProperty("ossrhPassword") as String? ?: ""
+                password = ossrhPassword
+                if (ossrhUser.isBlank() || ossrhPassword.isBlank()) {
+                    logger.warn("Sonatype user and password are not set you won't be able to publish to maven central!")
+                }
+            }
+        }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/mayope/errorcollector")
