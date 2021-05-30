@@ -15,7 +15,7 @@ repositories {
 
 val ktLintVersion = "0.39.0"
 allprojects {
-    group = "net.mayope.errorcollector"
+    group = "net.mayope"
     version = project.version
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -113,7 +113,7 @@ val javadocJar by tasks.creating(Jar::class) {
 publishing {
     publications {
         register("mavenJava", MavenPublication::class) {
-            groupId = "net.mayope.errorcollector"
+            groupId = "net.mayope"
             artifact(sourcesJar)
             artifact(javadocJar)
             from(components["java"])
