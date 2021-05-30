@@ -1,4 +1,4 @@
-package de.mayope.errorcollector.model
+package net.mayope.errorcollector.model
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import java.util.concurrent.atomic.AtomicInteger

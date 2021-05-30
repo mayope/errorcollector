@@ -1,4 +1,4 @@
-package de.mayope.errorcollector.issue
+package net.mayope.errorcollector.issue
 
 import java.net.URLEncoder
 import java.util.Locale

@@ -1,9 +1,9 @@
-package de.mayope.errorcollector.publish.teams
+package net.mayope.errorcollector.publish.teams
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.classic.spi.ThrowableProxyUtil
-import de.mayope.errorcollector.publish.ExceptionPublisher
-import de.mayope.errorcollector.publish.PublishableException
+import net.mayope.errorcollector.publish.ExceptionPublisher
+import net.mayope.errorcollector.publish.PublishableException
 
 private const val MAX_MESSAGE_LENGTH = 20500
 

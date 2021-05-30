@@ -1,9 +1,9 @@
-package de.mayope.errorcollector.publish.telegram
+package net.mayope.errorcollector.publish.telegram
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.classic.spi.ThrowableProxyUtil
-import de.mayope.errorcollector.publish.ExceptionPublisher
-import de.mayope.errorcollector.publish.PublishableException
+import net.mayope.errorcollector.publish.ExceptionPublisher
+import net.mayope.errorcollector.publish.PublishableException
 import org.apache.commons.lang3.StringUtils
 
 // The Message limit in Telegram is 4096 characters.

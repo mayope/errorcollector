@@ -1,4 +1,4 @@
-package de.mayope.errorcollector.publish.telegram
+package net.mayope.errorcollector.publish.telegram
 
 @Suppress("ConstructorParameterNaming")
 data class TelegramMessage(

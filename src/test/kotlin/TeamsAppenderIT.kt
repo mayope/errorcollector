@@ -1,5 +1,5 @@
 import ch.qos.logback.classic.Logger
-import de.mayope.errorcollector.TeamsAppender
+import net.mayope.errorcollector.TeamsAppender
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher

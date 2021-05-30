@@ -1,4 +1,4 @@
-package de.mayope.errorcollector.publish.teams
+package net.mayope.errorcollector.publish.teams
 
 import feign.Feign
 import feign.Headers

@@ -1,4 +1,4 @@
-package de.mayope.errorcollector
+package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import kotlinx.coroutines.ObsoleteCoroutinesApi

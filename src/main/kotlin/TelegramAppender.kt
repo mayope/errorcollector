@@ -1,12 +1,12 @@
-package de.mayope.errorcollector
+package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.AppenderBase
-import de.mayope.errorcollector.issue.IssueProvider
-import de.mayope.errorcollector.issue.IssueService
-import de.mayope.errorcollector.pastebin.PastebinClientBuilder
-import de.mayope.errorcollector.publish.telegram.TelegramClientBuilder
-import de.mayope.errorcollector.publish.telegram.TelegramPublisher
+import net.mayope.errorcollector.issue.IssueProvider
+import net.mayope.errorcollector.issue.IssueService
+import net.mayope.errorcollector.pastebin.PastebinClientBuilder
+import net.mayope.errorcollector.publish.telegram.TelegramClientBuilder
+import net.mayope.errorcollector.publish.telegram.TelegramPublisher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ObsoleteCoroutinesApi

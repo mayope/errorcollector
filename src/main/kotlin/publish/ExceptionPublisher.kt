@@ -1,6 +1,6 @@
-package de.mayope.errorcollector.publish
+package net.mayope.errorcollector.publish
 
-import de.mayope.errorcollector.model.ExceptionContainer
+import net.mayope.errorcollector.model.ExceptionContainer
 
 internal data class PublishableException(
     val exception: ExceptionContainer,

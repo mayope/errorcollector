@@ -1,4 +1,4 @@
-package de.mayope.errorcollector.pastebin
+package net.mayope.errorcollector.pastebin
 
 import feign.Body
 import feign.Feign

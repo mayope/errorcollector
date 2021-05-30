@@ -1,13 +1,13 @@
-package de.mayope.errorcollector
+package net.mayope.errorcollector
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.classic.spi.ThrowableProxyUtil
-import de.mayope.errorcollector.issue.IssueService
-import de.mayope.errorcollector.model.ExceptionContainer
-import de.mayope.errorcollector.pastebin.PastebinClient
-import de.mayope.errorcollector.pastebin.uploadText
-import de.mayope.errorcollector.publish.ExceptionPublisher
-import de.mayope.errorcollector.publish.PublishableException
+import net.mayope.errorcollector.issue.IssueService
+import net.mayope.errorcollector.model.ExceptionContainer
+import net.mayope.errorcollector.pastebin.PastebinClient
+import net.mayope.errorcollector.pastebin.uploadText
+import net.mayope.errorcollector.publish.ExceptionPublisher
+import net.mayope.errorcollector.publish.PublishableException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
