@@ -36,7 +36,9 @@ internal class PastebinClientBuilder {
         return Feign.builder().run {
             encoder(JacksonEncoder())
             decoder(JacksonDecoder())
-            requestInterceptor(BasicAuthRequestInterceptor(userName, password))
+            if (userName != null && password != null) {
+                requestInterceptor(BasicAuthRequestInterceptor(userName, password))
+            }
             options(
                 Request.Options(
                     connectTimeOut, TimeUnit.SECONDS, readTimeOut, TimeUnit.SECONDS, true
