@@ -1,10 +1,38 @@
-# ErrorCollector Logback-classic 
+# ErrorCollector Logback-classic ![Maven metadata URL](https://img.shields.io/maven-metadata/v/https/repo.maven.apache.org/maven2/net/mayope/errorcollector/maven-metadata.xml.svg?label=mavenCentral)
 
 This projects aims to provide a convenient way to be notified if an error in on of your systems occurs.
 
 The appender will collect all errors in a configurable interval (default 5 min).
 
 If exception occurred will send them to the configured publisher(Microsoft Teams and Telegram are currently supported)
+## Gradle
+kotlinscript:
+```groovy
+repositories{
+  mavenCentral()
+}
+dependencies{
+  implementation("net.mayope:errorcollector:x.x.x")
+}
+```
+groovy:
+```groovy
+repositories{
+  mavenCentral()
+}
+dependencies{
+  implementation 'net.mayope:errorcollector:x.x.x'
+}
+```
+
+## Maven
+```xml
+<dependency>
+  <groupId>net.mayope</groupId>
+  <artifactId>errorcollector</artifactId>
+  <version>0.0.7</version>
+</dependency>
+```
 
 ## Usage Telegram
 Example Logback configuration
