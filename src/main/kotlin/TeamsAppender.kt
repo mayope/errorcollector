@@ -34,6 +34,7 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
     var sendIntervalMinutes: Long = SEND_INTERVAL_MINUTES
     var serviceName: String? = null
     var activateOnEnv: String? = null
+    var activateOnEnvValue: String? = null
 
     private lateinit var errorAppender: ErrorAppender
 
@@ -71,9 +72,19 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
 
     @Suppress("TooGenericExceptionCaught")
     override fun append(eventObject: ILoggingEvent?) {
-        if (activeOnEnvPresent(activateOnEnv)) {
+        if (checkAppend()) {
             errorAppender.append(eventObject)
         }
+    }
+
+    private fun checkAppend(): Boolean {
+        if (activateOnEnv == null) {
+            return true
+        }
+        if (activeOnEnvPresent(activateOnEnv)) {
+            return activateOnEnvValue == null || activateOnEnvValue == System.getenv(activateOnEnv)
+        }
+        return false
     }
 }
 
