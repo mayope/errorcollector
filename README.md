@@ -56,9 +56,10 @@ Example Logback configuration
         <readTimeOut>600</readTimeOut>
         <issueProvider>github</issueProvider>
         <issueBaseUrl>https://github.com/mayope/errorcollector/issues/new</issueBaseUrl>
-        <sendIntervalMinutes>https://github.com/mayope/errorcollector/issues/new</sendIntervalMinutes>
+        <sendIntervalMinutes>5</sendIntervalMinutes>
         <serviceName>myCoolService</serviceName>
-        <activateOnEnv>PRODUCTION</activateOnEnv>
+        <activateOnEnv>SYSTEM</activateOnEnv>
+        <activeteOnEnvValue>production</activeteOnEnvValue>
     </appender>
 
     <root level="ERROR">
@@ -105,6 +106,9 @@ Example Logback configuration
 
   | Only enable error sending if this environment variable is set to any value
 
+- activateOnEnvValue: String?, optional , default = null
+
+  | Only enable error sending if the environment variable under activatOnEnv is set to this value
 ## Usage Teams
 Example Logback Configuration
 
@@ -126,9 +130,10 @@ Example Logback Configuration
     <readTimeOut>600</readTimeOut>
     <issueProvider>github</issueProvider>
     <issueBaseUrl>https://github.com/mayope/errorcollector/issues/new</issueBaseUrl>
-    <sendIntervalMinutes>https://github.com/mayope/errorcollector/issues/new</sendIntervalMinutes>
+    <sendIntervalMinutes>5</sendIntervalMinutes>
     <serviceName>myCoolService</serviceName>
-    <activateOnEnv>PRODUCTION</activateOnEnv>
+    <activateOnEnv>SYSTEM</activateOnEnv>
+    <activeteOnEnvValue>production</activeteOnEnvValue>
   </appender>
 
   <include resource="org/springframework/boot/logging/logback/base.xml"/>
