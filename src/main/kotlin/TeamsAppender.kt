@@ -78,13 +78,11 @@ open class TeamsAppender(private val dispatcher: CoroutineDispatcher = Dispatche
     }
 
     private fun checkAppend(): Boolean {
-        if (activateOnEnv == null) {
-            return true
+        return when {
+            activateOnEnv == null -> true
+            activeOnEnvPresent(activateOnEnv) -> activateOnEnvValue == System.getenv(activateOnEnv)
+            else -> false
         }
-        if (activeOnEnvPresent(activateOnEnv)) {
-            return activateOnEnvValue == null || activateOnEnvValue == System.getenv(activateOnEnv)
-        }
-        return false
     }
 }
 
