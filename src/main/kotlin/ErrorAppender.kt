@@ -27,7 +27,7 @@ internal class ErrorAppender(
     private fun registerMessage(eventObject: ILoggingEvent) {
 
         val logMessage = eventObject.formattedMessage
-        if (isBlacklisted(logMessage)) {
+        if (isBlacklisted(logMessage) || isBlacklisted(eventObject.throwableProxy.className)) {
             return
         }
         errorAggregator.registerMessage(eventObject)
